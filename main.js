@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require("electron");
+const { app, BrowserWindow, ipcMain, Notification } = require("electron");
 
 function createWindow() {
   const win = new BrowserWindow({
@@ -29,4 +29,12 @@ app.on("activate", () => {
   if (BrowserWindow.getAllWindows().length === 0) {
     createWindow();
   }
+});
+
+ipcMain.on("showNotification", (event, args) => {
+  const note = new Notification({
+    title: "Notification Title",
+    body: "Notification body",
+  });
+  note.show();
 });
